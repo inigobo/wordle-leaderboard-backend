@@ -1,25 +1,53 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
-  },
-  plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
+  ignorePatterns: [
+    'out/',
+    'example/',
+    'coverage/',
+    'node_modules',
+    'jest-coverage/',
+    'dist/',
+    'dist',
   ],
-  root: true,
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:promise/recommended',
+    'plugin:jest/recommended',
+    'plugin:import/typescript',
+  ],
+  plugins: [
+    '@typescript-eslint',
+    '@typescript-eslint/eslint-plugin',
+    'promise',
+    'import',
+    'relations',
+  ],
+  settings: {
+    'import/extensions': ['.js', '.jsx'],
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        project: './',
+      },
+    },
+  },
   env: {
-    node: true,
     jest: true,
+    node: true,
+    es6: true,
   },
-  ignorePatterns: ['.eslintrc.js'],
+  globals: {},
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
+    // OFF
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-namespace': 'off',
+    'jest/expect-expect': 'off',
+    // WARN
+    'eol-last': 1,
+    'no-console': 'warn' + '',
   },
-};
+}
